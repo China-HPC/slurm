@@ -1,78 +1,72 @@
 <!--#include virtual="header.txt"-->
 
-<h1>Workload Characterization Key (WCKey) Management</h1>
+<h1>工作负载特征键 (Workload Characterization Key - WCKey) 管理</h1>
 
-<p>A WCKey is an orthogonal way to do accounting against possibly
-  unrelated accounts. This can be useful where users from different
-  accounts are all working on the same project.
-</p>
-
-<h2>slurm(dbd).conf settings</h2>
-<p>Including "WCKey" in your <b>AccountingStorageEnforce</b> option in
-  your slurm.conf file will enforce WCKeys per job.  This means only
-  jobs with valid WCKeys (WCKeys previously added through sacctmgr)
-  will be allowed to run.
 <p>
-<p>If you wish to track the value of a jobs WCKey you must set
-  the <b>TrackWCKey</b> option in both the slurm.conf as well as the
-  slurmdbd.conf files.  This will assure the WCKey is tracked on each
-  job.  If you set "WCKey" in your <b>AccountingStorageEnforce</b>
-  line <b>TrackWCKey</b> is set automatically, it still needs to be
-  added to your slurmdbd.conf file though.
+  WCKey是一种对不相关的账户做审计的手段，当不同账户的用户在做相同的项目时，这将很有用。
+</p。
+
+<h2>slurm(dbd).conf 设置</h2>
+<p>在slurm.conf配置文件的<b>AccountingStorageEnforce</b>选项中加入"WCKey",
+  这将强制每个作业具有WCKeys。这意味着只有在合法的WCKeys中（之前通过sacctmgr添加的）的作业才能运行。
+<p>
+<p>如果想跟踪作业的 WCKey 值，您必须同时在 slurm.conf 和 slurmdbd.conf 配置 <b>TrackWCKey</b>项。
+  这将确保每个作业中对 WCKey 进行跟踪。
+  如果在<b>AccountingStorageEnforce</b> 中设置了 "WCKey"，那么<b>TrackWCKey</b>会被自动设置，
+  该选项也要在 slurmdbd.conf设置。
 </p>
 
 <h2>sbatch/salloc/srun</h2>
-<p> Each submitting tool has the --wckey= option that can set the WCKey for a
- job.  [SBATCH|SALLOC|SLURM]_WCKEY can also be set in the environment
- to set the WCKey.  If no WCKey is given the WCKey for the job will be
- set to the users default WCKey for the cluster, which can be set up
- with sacctmgr.  Also if no WCKey is specified the accounting record
- is appended with a '*' to signify the WCKey was not specified.  This
- is useful for a manager to determine if a user is specifying their
- WCKey or not.
+<p> 每个作业提交工具都有 --wckey= 选项用于设定作业的 WCKey值。也能通过环境变量[SBATCH|SALLOC|SLURM]_WCKEY
+ 来设置 WCKey值。如果作业提交时没有指定 WCKey，则 WCKey 会被设置成该集群中该用户的缺省 WCKey值
+ （该值可以通过sacctmgr设置）。
+ 如果没有指定 WCKey，在审计记录中会附加 '*' 用于标示该作业没有指定 WCKey。
+ 这对管理人员判断用户提交作业时是否指定了 WCKey 很有帮助。
 </p>
 
 <h2>sacct</h2>
-<p>Sacct can be used to view the WCKey by adding "wckey" to the
-  --format option.  You can also single out jobs by using the
-  --wckeys= option which would only send information about jobs that
-  ran with specific WCKeys.
+<p>
+  在Sacct指令中的 --format 选项中添加 “wckey” 可以查看作业WCKey信息。例如：
 </p>
+<pre>
+sacct --format=Account,wckey,TotalCPU,UI
+</pre>
+<p>
+您也可以在sacct指令中使用 --wckeys= 选项，这将只显示特定WCKeys相关的作业。例如：
+</p>
+<pre>
+sacct --wckeys=test1,test2
+</pre>
 
 <h2>sacctmgr</h2>
-<p>Sacctmgr is used to manage WCKeys.  You can add and remove WCKeys
-  from users or list them.
+<p>Sacctmgr用于管理WCKeys。您可以用该指令把用户从WCKeys中添加或删除，或是列出它们。
 </p>
-<p>You add a user to a WCKey much like you do an account, only the
-  WCKey doesn't need to be created before hand. i.e.
+<p>您可以象添加到账户一样将用户添加到WCKey中，只是WCKey不需要事先创建。例：
 </p>
 <pre>
 sacctmgr add user da wckey=secret_project
 </pre>
 
-<p> You can remove them from a WCKey in the same fashion.
+<p>您可以以相同的方式把它们从WCKey中删除。
 </p>
 
 <pre>
 sacctmgr del user da wckey=secret_project
 </pre>
 
-<p> To alter the users default WCKey you can run a line like
+<p>想要修改用户缺省的 WCKey 值，您可以运行如下所示的命令
 </p>
 <pre>
 sacctmgr mod user da cluster=snowflake set defaultwckey=secret_project
 </pre>
 
-<p>
-Which will change the default WCKey for user "da" on cluster
-"snowflake" to be "secret_project".  If you want this for all clusters
-just remove the cluster= option.
+<p>这将把群集 "snowflake" 上用户 “da” 的默认WCKey修改为 “secret_project”。 如果您想设置所有群集
+的WCKey缺省值，只需要删除 cluster= 选项。
 </p>
 
 <h2>sreport</h2>
-<p>Information about reports available for WCKeys can be
-  found on the <a href="sreport.html">sreport manpage</a>.
+<p>报表中关于WCKeys的信息可以在这里查看: <a href="sreport.html">sreport 帮助页面</a>.
 </p>
-<p style="text-align:center;">Last modified 14 November 2014</p>
+<p style="text-align:center;">最后修改日期 14 November 2014</p>
 
 <!--#include virtual="footer.txt"-->
