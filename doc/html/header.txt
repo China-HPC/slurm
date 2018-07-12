@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width" />
 
-	<title>Slurm Workload Manager</title>
+	<title>Slurm Workload Manager - 中文站</title>
 
 	<!--#canonical-->
 
@@ -36,6 +36,16 @@
 	  s.parentNode.insertBefore(gcse, s);
 	})();
 	</script>
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?71e0088a2546b95b52f5fbee1e696054";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
 </head>
 
 <body>
@@ -61,48 +71,48 @@
 
 
 		<nav class="site-nav">
-			<h2 class="site-nav__title">Navigation</h2>
+			<h2 class="site-nav__title">导航</h2>
 
 			<div class="slurm-title">
 				<div class="slurm-logo"><a href="/">Slurm Workload Manager</a></div>
-				<div class="slurm-title__version">Version @SLURM_VERSION@</div>
+				<div class="slurm-title__version">版本 @SLURM_VERSION@</div>
 			</div>
 
 			<ul class="site-nav__menu site-menu menu" role="navigation">
 				<li class="site-menu__item">
-				        <div>About</div>
+				        <div>关于</div>
 					<ul>
-						<li><a href="overview.shtml">Overview</a></li>
-						<li><a href="news.shtml">What's New</a></li>
-						<li><a href="team.shtml">Slurm Team</a></li>
-						<li><a href="meetings.shtml">Meetings</a></li>
-						<li><a href="testimonials.shtml">Testimonials</a></li>
-						<li><a href="disclaimer.shtml">Legal Notices</a></li>
+						<li><a href="overview.shtml">概览</a></li>
+						<li><a href="news.shtml">更新说明</a></li>
+						<li><a href="team.shtml">团队</a></li>
+						<li><a href="meetings.shtml">会议</a></li>
+						<li><a href="testimonials.shtml">客户推荐</a></li>
+						<li><a href="disclaimer.shtml">法律声明</a></li>
 					</ul>
 				</li>
 				<li class="site-menu__item">
-					<div>Using</div>
+					<div>使用</div>
 					<ul>
-						<li><a href="tutorials.shtml">Tutorials</a></li>
-						<li><a href="documentation.shtml">Documentation</a></li>
-						<li><a href="faq.shtml">FAQ</a></li>
-						<li><a href="publications.shtml">Publications</a></li>
+						<li><a href="tutorials.shtml">教程</a></li>
+						<li><a href="documentation.shtml">文档</a></li>
+						<li><a href="faq.shtml">常见问题</a></li>
+						<li><a href="publications.shtml" titile="演讲资料">出版物</a></li>
 					</ul>
 				</li>
 				<li class="site-menu__item">
-					<div>Installing</div>
+					<div>安装</div>
 					<ul>
-						<li><a href="download.shtml">Download</a></li>
-						<li><a href="quickstart_admin.shtml">Installation Guide</a></li>
+						<li><a href="download.shtml">下载</a></li>
+						<li><a href="quickstart_admin.shtml">安装指南</a></li>
 					</ul>
 				</li>
 				<li class="site-menu__item">
-					<div>Getting Help</div>
+					<div>获取帮助</div>
 					<ul>
-						<li><a href="https://www.schedmd.com/services.php">Support</a></li>
-						<li><a href="mail.shtml">Mailing Lists</a></li>
-						<li><a href="https://www.schedmd.com/services.php">Training</a></li>
-						<li><a href="troubleshoot.shtml">Troubleshooting</a></li>
+						<li><a href="https://www.schedmd.com/services.php">支持</a></li>
+						<li><a href="mail.shtml">邮件列表</a></li>
+						<li><a href="https://www.schedmd.com/services.php">培训</a></li>
+						<li><a href="troubleshoot.shtml">故障排除</a></li>
 					</ul>
 				</li>
 			</ul>
