@@ -6,7 +6,7 @@
 <footer class="site-footer" role="contentinfo">
 	<nav class="footer-nav section">
 		<div class="container">
-			<p><a href="disclaimer.shtml" target="_blank" class="privacy">Legal Notices</a></p>
+			<p><a href="disclaimer.shtml" target="_blank" class="privacy">法律声明</a></p>
 		</div>
 	</nav>
 </footer>
@@ -26,3 +26,4 @@
 
 </body>
 </html>
+
