@@ -1,9 +1,13 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import re
 import sys
 import os
 import codecs
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 include_pat = r'(<!--\s*#include\s*virtual\s*=\s*"([^"]+)"\s*-->)'
 include_regex = re.compile(include_pat)

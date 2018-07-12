@@ -1,9 +1,13 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import re
 import sys
 import os
 import codecs
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 canonical_url = 'https://slurm.schedmd.com/'
 
