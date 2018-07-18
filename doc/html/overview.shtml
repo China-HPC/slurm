@@ -12,7 +12,7 @@
 <a href="resource_limits.html">资源限制</a> (基于用户或账户的资源限制), <a href="priority_multifactor.html"> 复杂的多因素作业优先级算法</a> 
 
 <h2>架构</h2>
-<p>Slurm有至少一个集中管理器<b>slurmctld</b>slurmctld用于监控资源和作业，也可能存在备用的<b>slurmctld</b>用于系统故障后的责任接管。每个计算节点上都有一个名为<b>slurmd</b>的守护进程，类似于一个远程shell，它不断地等待作业分配、执行作业、返回作业状态，<b>slurmd</b>提供了容错的分层通信。可选的<b>slurmdbd</b>(Slurm DataBase Daemon) 用于在单个数据库中记录多个Slurm管理的账务信息。  
+<p>Slurm有至少一个集中管理器<b>slurmctld</b>用于监控资源和作业，也可能存在备用的<b>slurmctld</b>用于系统故障后的责任接管。每个计算节点上都有一个名为<b>slurmd</b>的守护进程，类似于一个远程shell，它不断地等待作业分配、执行作业、返回作业状态，<b>slurmd</b>提供了容错的分层通信。可选的<b>slurmdbd</b>(Slurm DataBase Daemon) 用于在单个数据库中记录多个Slurm管理的账务信息。  
 还包含一些命令行工具，用户工具包括 <b>srun</b> 用于创建作业，
 <b>scancel</b> 用于终止排队等候或正在运行的作业，
 <b>sinfo</b> 用于报告系统状态，
@@ -30,7 +30,7 @@
 <p>Slurm包含了调度所需的各种功能，除基本功能之外Slurm还提供了可用于轻松支持各种基础设施的通用插件机制，这允许模块化的方式配置Slurm，下面是目前支持的插件以及它们的功能：  
 <ul>
 <li><a href="accounting_storageplugins.html">Accounting Storage</a>:
-  主要用于存储有关作业的历史数据。当与`slurmdbd`一起使用时，它还可以提供基于限制的系统以及历史系统状态。
+  主要用于存储有关作业的历史数据。当与<b>slurmdbd</b>一起使用时，它还可以提供基于限制的系统以及历史系统状态。
 </li>
 
 <li><a href="acct_gather_energy_plugins.html">Account Gather Energy</a>:
@@ -66,7 +66,7 @@
 </li>
 
 <li><a href="launch_plugins.html">Launchers</a>:
-  控制<a href="srun.html">'srun'</a>命令用于启动任务的机制。
+  控制<a href="srun.html">srun</a>命令用于启动任务的机制。
 </li>
 
 <li><a href="mpiplugins.html">MPI</a>:
