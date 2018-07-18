@@ -1,39 +1,30 @@
 <!--#include virtual="header.txt"-->
 
-<h1>Licenses Guide</h1>
+<h1>软件许可证指南</h1>
 
-<h2>Licenses Overview</h2>
-<p>Slurm can help with software license management by assigning available
-licenses to jobs at scheduling time. If the licenses are not available,
-jobs are kept pending until licenses become available.
-Licenses in Slurm are essentially shared resources, meaning configured resources
-that are not tied to a specific host but are associated with the entire cluster.
+<h2>许可证概览</h2>
+<p>Slurm可以在作业调度时为作业分配软件许可，如果没有软件许可作业将保持等待直到许可证可用。Slurm中的软件许可本质上是共享资源，即未绑定到特定主机但与整个群集关联的已配置资源。
 
-<p>Licenses in Slurm can be configured in two ways:</p>
+<p>Slurm中的许可证可以通过两种方式配置：</p>
 <ul>
-<li><b>Local Licenses:</b>
-Local licenses are local to the cluster using the
-<it>slurm.conf</it> in which they are configured.
+<li><b>本地许可证:</b>
+本地许可证是配置在<it>slurm.conf</it>中的集群许可证。
 </li>
-<li><b>Remote Licenses:</b>
-Remote licenses are served by the database and are configured using the
-<it>sacctmgr</it> command. Remote licenses are dynamic in nature as upon running
-the <it>sacctmgr</it> the <it>slurmdbd</it> updates all clusters the licenses
-are assigned to.
+<li><b>远程许可证:</b>
+远程许可证由数据库提供，并使用<it>sacctmgr</it>命令进行配置。 远程许可证本质上是动态的，因为在运行<it>sacctmgr</it>时，<it>slurmdbd</it>会更新许可证分配给的所有集群。
 </li>
 </ul>
 
 
-<h2>Local Licenses</h2>
-<p>Local licenses are defined in the slurm.conf using the <i>Licenses</i>
-option.
+<h2>本地许可证</h2>
+<p>在slurm.conf中使用<i>Licenses</i>项定义本地许可证。
 
 <p>slurm.conf:
 <pre>
 Licenses=fluent:30,ansys:100
 </pre>
 
-<p>Configured licenses can be viewed using the <i>scontrol</i> command.
+<p>可以使用<i>scontrol</i>命令查看已配置的许可证。
 <pre>
 $ scontrol show lic
 LicenseName=ansys
@@ -42,8 +33,7 @@ LicenseName=fluent
     Total=30 Used=0 Free=30 Remote=no
 </pre>
 
-<p>Requesting licenses is done by using the -L, or --licenses, submission
-option.
+<p>通过使用-L或--licenses提交选项来请求许可证。
 <pre>
 $ sbatch -L ansys:2 script.sh
 Submitted batch job 5212
@@ -55,19 +45,13 @@ LicenseName=fluent
     Total=30 Used=0 Free=30 Remote=no
 </pre>
 
-<h2>Remote Licenses</h2>
+<h2>远程许可证</h2>
 
-<h3>Use Case</h3>
-<p>A site has two license servers, one serves 100 Nastran licenses provided by
-FlexNet and the other serves 50 Matlab licenses from Reprise License
-Management. The site has two clusters named "fluid" and "pdf" dedicated to run
-simulation jobs using both products. The managers want to split the number
-of Nastran licenses equally between clusters, but assign 70% of the Matlab
-licenses to cluster "pdf" and the remaining 30% to cluster "fluid".</p>
+<h3>使用案例</h3>
+<p>一个单位有两个许可证服务器，一个服务器提供FlexNet提供的100个Nastran许可证，另一个服务器由Reprise License Management提供的50个Matlab许可证。该单位有两个名为“fluid”和“pdf”的集群，专门用于使用这两种产品运行模拟作业。管理人员希望在群集之间平均分配Nastran许可证的数量，但是将70％的Matlab许可证分配给群集“pdf”，剩余的30％分配给群集“fluid”。</p>
 
-<h3>Configuring Slurm for the use case</h3>
-<p>Here we assume that both clusters have been configured correctly in the
-<it>slurmdbd</it> using the <it>sacctmgr</i> command.</p>
+<h3>为上述案例配置SLURM</h3>
+<p>这里我们假设使用sacctmgr命令在slurmdbd中正确配置了两个集群。</p>
 <pre>
 $ sacctmgr show clusters format=cluster,controlhost
    Cluster     ControlHost
@@ -76,12 +60,9 @@ $ sacctmgr show clusters format=cluster,controlhost
        pdf     144.12.3.2
 </pre>
 
-<p>The licenses are added using the <i>sacctmgr</i> command, specifying the
-total count of licenses and the percentage that should be allocated
-to each cluster. This can be done either in one step or through a
-multi-step process.
+<p>使用<li>sacctmgr</li>命令添加许可证，指定许可证的总数以及应分配给每个群集的百分比。这可以在一个步骤中完成，也可以通过多步骤过程完成。
 
-<p>One step:
+<p>单步完成：
 <pre>
 $ sacctmgr add resource name=nastran cluster=fluid,pdf \
   count=100 percentallowed=50 server=flex_host
@@ -99,7 +80,7 @@ $ sacctmgr add resource name=nastran cluster=fluid,pdf \
   Type           = License
 </pre>
 
-<p>Multi-step:
+<p>多步完成：
 <pre>
 $ sacctmgr add resource name=matlab count=50 server=rlm_host \
   servertype=rlm type=license
@@ -133,8 +114,7 @@ $ sacctmgr add resource name=matlab server=rlm_host
 </pre>
 
 
-<p>The <it>sacctmgr</it> command will now display the grand total
-of licenses.
+<p><li>sacctmgr</li>命令现在将显示许可证的总数:
 <pre>
 $ sacctmgr show resource
       Name     Server     Type  Count % Allocated ServerType 
@@ -151,8 +131,7 @@ $sacctmgr show resource withclusters
     matlab   rlm_host  License     50         100        rlm      fluid         30 
 </pre>
 
-<p>The configured licenses are now visible on both clusters using the
-<it>scontrol</it> command.
+<p>现在，使用<li>scontrol</li>命令在两个群集上都可以看到已配置的许可证。</p>
 <pre>
 $ scontrol show lic
 LicenseName=matlab@rlm_host
@@ -168,14 +147,14 @@ LicenseName=nastran@flex_host
     Total=50 Used=0 Free=50 Remote=yes
 </pre>
 
-<p>When submitting jobs to remote licenses, the name and server must be used.
+<p>将作业提交到远程许可证时，必须指定许可证名称和服务器。
 <pre>
 $ sbatch -L nastran@flex_host script.sh
 Submitted batch job 5172
 </pre>
 
 
-<p>License percentages and counts can be modified as shown below:
+<p>可以修改许可证百分比和计数，如下所示：
 <pre>
 $ sacctmgr modify resource name=matlab server=rlm_host set \
   count=200
@@ -198,7 +177,7 @@ $ sacctmgr show resource withclusters
     matlab   rlm_host  License    200          90        rlm      fluid         30 
 </pre>
 
-<p>Licenses can be deleted either on the cluster or all together as shown:
+<p>可以在群集上删除许可证，也可以将它们全部删除，如下所示：
 <pre>
 $ sacctmgr delete resource where name=matlab server=rlm_host \
   cluster=fluid
@@ -219,14 +198,8 @@ $ sacctmgr show resource withclusters
 
 
 
-<h2>Dynamic licenses</h2>
-<p>When the license counter and percentage is updated using the <it>sacctmgr</it>
-command, the values are updated in the database and the updated values are sent
-to the slurmctld daemon.
-It is possible for sites to write a script that detects global license counter
-changes due to new licenses being added, or old licenses being removed, and
-updates Slurm. Should the license count decrease, the running jobs will not be
-affected only the dispatch of new job will reflect the new license count.</p>
+<h2>动态许可证</h2>
+<p>使用<li>sacctmgr</li>命令更新许可证计数器和百分比时，将在数据库中更新值，并将更新的值发送到slurmctld守护程序。可以编写一个脚本，用于检测由于添加新许可证或删除旧许可证而导致的全局许可证计数器更改并更新Slurm。如果许可证数量减少，不会影响正在运行的作业，只有新分发的作业会反映新的许可证计数。</p>
 
 <p class="footer"><a href="#top">top</a></p>
 
